@@ -2,8 +2,22 @@
 {% block content %}
     <div class="fullscreen-container">
         <div class="content-box">
-            <h1>My Projects</h1>
-            <p>Here are some of my projects...</p>
+            <p class="text-center">Projects are not deployed separately, so GitHub links only</p>
+
+            <div class="projects-container">
+                {% for project in projects %}
+                    <div class="project-card">
+                        <h2 class="project-title">{{ project.title }}</h2>
+                        <ul class="project-description">
+                            {% for line in project.description.splitlines %}
+                                <p>{{ line }}</p>
+                            {% endfor %}
+                        </ul>
+                        <p><strong>Tech Stack:</strong> {{ project.stack }}</p>
+                        <a href="{{ project.link }}" target="_blank" class="btn btn-primary">View on GitHub</a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
