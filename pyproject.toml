@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 django = "^5.1.5"
 python-dotenv = "^1.0.1"
+pillow = "^11.1.0"
 
 
 [build-system]

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="fullscreen-container">
+        <div class="content-box">
+            <a href="{% static 'Python_Pavlo_Dubovyi.pdf' %}" class="btn btn-primary mb-4" download>
+                Download my CV
+            </a>
+
+            <p>and feel free to</p>
+
+            <h1 class="mb-4">Send me a letter</h1>
+            <div class="form-container">
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="name">Your Name:</label>
+                    <input type="text" name="name" required>
+
+                    <label for="company">Company Name:</label>
+                    <input type="text" name="company">
+
+                    <label for="email">Your email:</label>
+                    <input type="email" name="email" required>
+
+                    <label for="message">Message:</label>
+                    <textarea name="message" required></textarea>
+
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

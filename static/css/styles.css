@@ -1,0 +1,67 @@
+body {
+    background-image: url("../background_2.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+}
+.navbar {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+.fullscreen-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: -100px;
+}
+.content-box {
+    background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    padding: 20px;
+    border-radius: 15px; /* Rounded corners */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Light border */
+    text-align: center;
+    max-width: 600px;
+    color: white;
+    width: 100%;
+}
+.form-container {
+    text-align: left;
+    max-width: 400px;
+    margin: auto;
+    width: 100%;
+}
+.form-container label,
+.form-container input,
+.form-container textarea,
+.form-container button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.text-left {
+    text-align: left;
+    margin-left: 40px;
+}
+.text-left ul {
+    list-style-position: outside;
+    padding-left: 20px;
+}
+
+.text-left li {
+    text-indent: 0;
+    padding-left: 0;
+}
