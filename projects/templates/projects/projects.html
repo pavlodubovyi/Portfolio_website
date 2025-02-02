@@ -2,7 +2,8 @@
 {% block content %}
     <div class="fullscreen-container">
         <div class="content-box">
-            <p class="text-center">Projects are not deployed separately, so GitHub links only</p>
+            <h1 class="page-title">Projects</h1>
+            <p class="text-center">are not deployed separately, so GitHub links only for now</p>
 
             <div class="projects-container">
                 {% for project in projects %}
@@ -14,7 +15,9 @@
                             {% endfor %}
                         </ul>
                         <p><strong>Tech Stack:</strong> {{ project.stack }}</p>
-                        <a href="{{ project.link }}" target="_blank" class="btn btn-primary">View on GitHub</a>
+                        <a href="{{ project.link }}" target="_blank" class="btn btn-primary d-block">
+                            View on GitHub
+                        </a>
                     </div>
                 {% endfor %}
             </div>
