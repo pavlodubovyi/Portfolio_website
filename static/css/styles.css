@@ -16,6 +16,7 @@ body {
     left: 0;
     z-index: 1000;
 }
+
 html, body {
     height: 100%;
     overflow: hidden;
@@ -54,21 +55,12 @@ html, body {
     width: 100%;
     margin-bottom: 10px;
 }
+
 .text-left {
     text-align: left;
     margin-left: 40px;
 }
-.text-left ul {
-    list-style-position: outside;
-    padding-left: 20px;
-}
 
-.text-left li {
-    text-indent: 0;
-    padding-left: 0;
-}
-
-/* Fix "My Projects" header positioning */
 .page-title {
     text-align: center;
     margin-bottom: 10px;
@@ -99,3 +91,10 @@ html, body {
     padding-left: 20px;
 }
 
+.btn-center {
+    display: inline-block;
+    text-align: center;
+    width: auto;
+    padding: 10px 10px;
+    margin-top: 5px;
+}

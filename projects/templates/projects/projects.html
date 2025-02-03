@@ -15,9 +15,11 @@
                             {% endfor %}
                         </ul>
                         <p><strong>Tech Stack:</strong> {{ project.stack }}</p>
-                        <a href="{{ project.link }}" target="_blank" class="btn btn-primary d-block">
-                            View on GitHub
-                        </a>
+                        <div class="text-center">
+                            <a href="{{ project.link }}" target="_blank" class="btn btn-primary btn-center">
+                                View on GitHub
+                            </a>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
