@@ -98,3 +98,17 @@ html, body {
     padding: 10px 10px;
     margin-top: 5px;
 }
+
+.top-row {
+    display: flex;
+    justify-content: space-between; /* Розташовуємо елементи по боках */
+    width: 80%; /* Обмежуємо ширину */
+    margin: 0 auto; /* Центруємо на сторінці */
+}
+
+.bottom-row {
+    display: flex;
+    justify-content: center; /* Вирівнюємо по центру */
+    width: 100%;
+    margin-top: 20px;
+}

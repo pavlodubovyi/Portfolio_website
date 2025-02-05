@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="fullscreen-container">
+    <!-- Верхній рядок з двома віджетами (ліворуч і праворуч) -->
+    <div class="top-row">
+        <div class="content-box text-center p-4">
+            <h2>Weather in {{ city }}, {{ country }}</h2>
+            {% if weather %}
+                <img src="{{ weather.icon }}" alt="Weather icon">
+                <p>🌡 Temperature: {{ weather.temperature }}°C</p>
+                <p>🔺 Max: {{ weather.temp_max }}°C | 🔻 Min: {{ weather.temp_min }}°C</p>
+                <p>🌥 {{ weather.description }}</p>
+            {% else %}
+                <p>⚠️ Weather data is currently unavailable.</p>
+            {% endif %}
+        </div>
+
+        <div class="content-box text-center p-4">
+            <h2>Other Useful Information</h2>
+            <p>Something will be here</p>
+        </div>
+    </div>
+
+    <div class="bottom-row">
+        <div class="content-box text-center p-4">
+            <h2>Top Sci-Fi Movies</h2>
+            <p>Here will be a list of movies...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
