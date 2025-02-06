@@ -1,10 +1,67 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="fullscreen-container">
-    <!-- Верхній рядок з двома віджетами (ліворуч і праворуч) -->
+<style>
+    /* Фон сторінки */
+    body {
+        background-image: url("/static/background.webp");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Контейнер для всього контенту */
+    .container-needful {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding-top: 80px; /* Відступ після navbar */
+    }
+
+    /* Контейнер для трьох верхніх блоків */
+    .top-row {
+        display: flex;
+        justify-content: space-around;
+        width: 90%;
+        max-width: 1200px;
+        margin-bottom: 20px;
+    }
+
+    /* Окремі блоки для Weather, Currency, Top Movies */
+    .info-box {
+        background: rgba(0, 0, 0, 0.7); /* Темний прозорий фон */
+        padding: 20px;
+        border-radius: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        text-align: center;
+        width: 30%;
+        min-height: 200px;
+    }
+
+    /* Контейнер для блоку новин */
+    .news-box {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        text-align: center;
+        width: 90%;
+        max-width: 1000px;
+        min-height: 500px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container-needful">
+    <!-- Верхній рядок: три віджети -->
     <div class="top-row">
-        <div class="content-box text-center p-4">
+        <div class="info-box">
             <h2>Weather in {{ city }}, {{ country }}</h2>
             {% if weather %}
                 <img src="{{ weather.icon }}" alt="Weather icon">
@@ -16,17 +73,22 @@
             {% endif %}
         </div>
 
-        <div class="content-box text-center p-4">
-            <h2>Other Useful Information</h2>
+        <div class="info-box">
+            <h2>Currency Exchange</h2>
             <p>Something will be here</p>
+        </div>
+
+        <div class="info-box">
+            <h2>Top Movies</h2>
+            <p>Top 10 Sci-Fi Movies list will be displayed here.</p>
         </div>
     </div>
 
-    <div class="bottom-row">
-        <div class="content-box text-center p-4">
-            <h2>Top Sci-Fi Movies</h2>
-            <p>Here will be a list of movies...</p>
-        </div>
+    <!-- Блок новин -->
+    <div class="news-box">
+        <h2>News</h2>
+        <p>Latest news from NewsAPI will be displayed here.</p>
     </div>
 </div>
+
 {% endblock %}
