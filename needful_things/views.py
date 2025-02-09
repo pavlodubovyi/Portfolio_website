@@ -2,6 +2,8 @@ import requests
 from django.shortcuts import render
 from django.views import View
 from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 
 class WeatherService:
@@ -86,6 +88,68 @@ class CurrencyService:
             return None
 
 
+class MovieService:
+    """Class to get top Sci-Fi movies from TMDb API"""
+
+    @staticmethod
+    def get_top_sci_fi_movies():
+        """Gets TOP of Sci-Fi movies"""
+        api_key = settings.MOVIE_DB_API_KEY
+        url = f"https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres=878&sort_by=vote_average.desc&vote_count.gte=1000"
+
+        try:
+            response = requests.get(url).json()
+
+            # API error handling
+            if response.get("status_code"):
+                print(f"API Error: {response.get('status_message')}")
+                return []
+
+            if "results" in response:
+                movies = [
+                    {
+                        "title": movie.get("title", "Unknown Title"),
+                        "year": movie.get("release_date", "N/A").split("-")[0] if movie.get("release_date") else "N/A",
+                        "rating": movie.get("vote_average", "N/A"),
+                        "description": movie.get("overview", "No description available."),
+                        "poster": f"https://image.tmdb.org/t/p/w500{movie['poster_path']}" if movie.get(
+                            "poster_path") else None
+                    }
+                    for movie in response.get("results", [])[:20]  # Get top 20 movies
+                ]
+                return movies
+            else:
+                print("No movie data found in API response.")
+                return []
+
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            return []
+
+
+class RandomFactService:
+    """Class for getting a random fact"""
+
+    @staticmethod
+    def get_random_fact():
+        """Gets a random fact"""
+        url = "https://uselessfacts.jsph.pl/random.json?language=en"
+        try:
+            response = requests.get(url).json()
+            return response.get("text", "No fact available at the moment.")
+        except requests.exceptions.RequestException:
+            return "Failed to fetch a random fact."
+
+
+class RandomFactView(View):
+    """Returns a random fact via htmx"""
+
+    def get(self, request):
+        fact = RandomFactService.get_random_fact()
+        html = render_to_string("needful_things/random_fact.html", {"random_fact": fact})
+        return HttpResponse(html)
+
+
 class NeedfulThingsView(View):
     """Main page view, handling other widgets"""
 
@@ -100,6 +164,12 @@ class NeedfulThingsView(View):
         # Get available currencies
         currencies = CurrencyService.get_available_currencies()
 
+        # Get top Sci-Fi movies
+        movies = MovieService.get_top_sci_fi_movies()
+
+        # Get a random fact
+        random_fact = RandomFactService.get_random_fact()
+
         return render(request, "needful_things/needful_things.html", {
             "weather": weather_data,
             "city": city,
@@ -108,30 +178,29 @@ class NeedfulThingsView(View):
             "result": None,
             "base_currency": "PLN",
             "target_currency": "EUR",
-            "amount": 1.0
+            "amount": 1.0,
+            "movies": movies,
+            "random_fact": random_fact
         })
 
-    def post(self, request):
-        """Handles currency conversion inside the same widget"""
 
+class CurrencyConverterView(View):
+    """Handles currency conversion via htmx"""
+
+    def post(self, request):
+        """Handles AJAX POST request from htmx"""
         base_currency = request.POST.get("base_currency", "PLN")
         target_currency = request.POST.get("target_currency", "EUR")
         amount = float(request.POST.get("amount", 1.0))
 
         result = CurrencyService.convert_currency(base_currency, target_currency, amount)
-        currencies = CurrencyService.get_available_currencies()
 
-        ip = WeatherService.get_user_ip(request)
-        city, country = WeatherService.get_user_location(ip)
-        weather_data = WeatherService.get_weather(city)
-
-        return render(request, "needful_things/needful_things.html", {
-            "weather": weather_data,
-            "city": city,
-            "country": country,
-            "currencies": currencies,
+        html = render_to_string("needful_things/currency_result.html", {
             "result": result,
             "base_currency": base_currency,
             "target_currency": target_currency,
             "amount": amount
         })
+
+        return HttpResponse(html)
+

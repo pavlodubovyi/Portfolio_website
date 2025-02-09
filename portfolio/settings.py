@@ -27,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
 EXCHANGE_RATES_API_KEY = os.getenv('EXCHANGE_RATES_API_KEY')
+MOVIE_DB_API_KEY = os.getenv('MOVIE_DB_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

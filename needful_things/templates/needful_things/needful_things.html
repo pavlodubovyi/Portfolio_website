@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<script src="https://unpkg.com/htmx.org@1.9.5"></script>
+
 <style>
     /* Page background */
     body {
@@ -33,7 +36,7 @@
         margin-bottom: 20px;
     }
 
-    /* Blocks for Weather, Currency, Top Movies */
+    /* Blocks for Weather, Currency, Random fact */
     .info-box {
         background: rgba(0, 0, 0, 0.7);
         padding: 20px;
@@ -44,18 +47,70 @@
         min-height: 200px;
     }
 
-    /* News box container */
-    .news-box {
+    /* Movie box container */
+    .movie-box {
         background: rgba(0, 0, 0, 0.7);
         padding: 20px;
         border-radius: 15px;
         border: 2px solid rgba(255, 255, 255, 0.5);
-        text-align: center;
+        text-align: left;
         width: 90%;
         max-width: 1000px;
-        min-height: 500px;
-        margin-bottom: 20px;
+        max-height: 600px;
+        overflow-y: auto; /* Scrolling */
+        margin-bottom: 50px;
     }
+
+    .movie-box h2 {
+        text-align: center; /* Centers the title */
+        position: sticky;
+        top: 0;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        margin-bottom: 10px;
+        z-index: 1;
+    }
+
+    .movie-list {
+        list-style-type: decimal;
+        list-style-position: inside;
+        padding: 0;
+        margin: 0;
+    }
+
+    .movie-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        gap: 15px;
+        counter-increment: movie-counter;
+    }
+
+    .movie-item::before {
+        content: counter(movie-counter) "."; /* Movie list counter */
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        margin-right: 10px;
+    }
+
+    .movie-poster {
+        width: 100px;
+        border-radius: 5px;
+        margin-right: 15px;
+    }
+
+    .movie-title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .movie-description {
+        font-size: 14px;
+        color: #ddd;
+        margin-top: 5px;
+    }
+
     .currency-form {
         display: flex;
         flex-direction: column;
@@ -122,7 +177,10 @@
         <!-- Currency converter widget -->
         <div class="info-box">
             <h2>Currency Exchange</h2>
-            <form class="currency-form" method="POST" action="{% url 'needful_things' %}">
+            <form class="currency-form" method="POST"
+                  hx-post="{% url 'currency_converter' %}"
+                  hx-target="#currency-result"
+                  hx-swap="outerHTML">
                 {% csrf_token %}
 
                 <div class="currency-row">
@@ -157,24 +215,51 @@
                 <input type="number" name="amount" value="{{ amount }}" step="0.01" required>
 
                 <button type="submit">Convert</button>
+            </form>
 
+            <div id="currency-result">
                 {% if result is not None %}
                     <div class="result">{{ amount }} {{ base_currency }} = {{ result|floatformat:2 }} {{ target_currency }}</div>
                 {% endif %}
-            </form>
+            </div>
         </div>
 
-        <!-- Top movies widget -->
+        <!-- Random fact widget -->
         <div class="info-box">
-            <h2>Top Movies</h2>
-            <p>Top 10 Sci-Fi Movies list will be displayed here.</p>
+            <h2>Random Fact</h2>
+            <div id="random-fact">
+                <p>{{ random_fact }}</p>
+            </div>
+            <button type="submit"
+                    style="margin-top: 10px; padding: 10px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;"
+                    hx-get="{% url 'random_fact' %}"
+                    hx-target="#random-fact"
+                    hx-swap="outerHTML">
+                Get Another Fact
+            </button>
         </div>
     </div>
 
-    <!-- News box -->
-    <div class="news-box">
-        <h2>News</h2>
-        <p>Latest news from NewsAPI will be displayed here.</p>
+    <!-- Movie box -->
+    <div class="movie-box">
+        <h2>Top Sci-Fi Movies according to TMDB</h2>
+        {% if movies %}
+            <ol class="movie-list">
+                {% for movie in movies %}
+                    <li class="movie-item">
+                        {% if movie.poster %}
+                            <img src="{{ movie.poster }}" alt="{{ movie.title }}" class="movie-poster">
+                        {% endif %}
+                        <div class="movie-info">
+                            <span class="movie-title">{{ movie.title }}</span> ({{ movie.year }}) ⭐ {{ movie.rating }}
+                            <p class="movie-description">{{ movie.description }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>⚠️ No movie data available.</p>
+        {% endif %}
     </div>
 </div>
 
