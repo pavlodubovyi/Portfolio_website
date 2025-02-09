@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import weather_view
+from .views import NeedfulThingsView
 
 urlpatterns = [
-    path('', weather_view, name='needful_things'),
+    path('', NeedfulThingsView.as_view(), name='needful_things'),
 ]

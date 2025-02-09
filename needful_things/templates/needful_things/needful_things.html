@@ -2,7 +2,7 @@
 
 {% block content %}
 <style>
-    /* Фон сторінки */
+    /* Page background */
     body {
         background-image: url("/static/background.webp");
         background-size: cover;
@@ -14,17 +14,17 @@
         font-family: Arial, sans-serif;
     }
 
-    /* Контейнер для всього контенту */
+    /* Container for all content */
     .container-needful {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         width: 100%;
-        padding-top: 80px; /* Відступ після navbar */
+        padding-top: 80px; /* Gap after navbar */
     }
 
-    /* Контейнер для трьох верхніх блоків */
+    /* Container for three upper widgets */
     .top-row {
         display: flex;
         justify-content: space-around;
@@ -33,9 +33,9 @@
         margin-bottom: 20px;
     }
 
-    /* Окремі блоки для Weather, Currency, Top Movies */
+    /* Blocks for Weather, Currency, Top Movies */
     .info-box {
-        background: rgba(0, 0, 0, 0.7); /* Темний прозорий фон */
+        background: rgba(0, 0, 0, 0.7);
         padding: 20px;
         border-radius: 15px;
         border: 2px solid rgba(255, 255, 255, 0.5);
@@ -44,7 +44,7 @@
         min-height: 200px;
     }
 
-    /* Контейнер для блоку новин */
+    /* News box container */
     .news-box {
         background: rgba(0, 0, 0, 0.7);
         padding: 20px;
@@ -56,11 +56,57 @@
         min-height: 500px;
         margin-bottom: 20px;
     }
+    .currency-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .currency-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .currency-form select, .currency-form input {
+        margin: 5px;
+        padding: 8px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .currency-form button {
+        margin-top: 10px;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .currency-form button:hover {
+        background-color: #0056b3;
+    }
+
+    .result {
+        margin-top: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        width: 100%;
+    }
 </style>
 
 <div class="container-needful">
-    <!-- Верхній рядок: три віджети -->
+    <!-- Three widgets in the upper row -->
     <div class="top-row">
+        <!-- Weather widget -->
         <div class="info-box">
             <h2>Weather in {{ city }}, {{ country }}</h2>
             {% if weather %}
@@ -73,18 +119,59 @@
             {% endif %}
         </div>
 
+        <!-- Currency converter widget -->
         <div class="info-box">
             <h2>Currency Exchange</h2>
-            <p>Something will be here</p>
+            <form class="currency-form" method="POST" action="{% url 'needful_things' %}">
+                {% csrf_token %}
+
+                <div class="currency-row">
+                    <div>
+                        <label>From:</label>
+                        <select name="base_currency">
+                            {% if currencies %}
+                                {% for currency in currencies %}
+                                    <option value="{{ currency }}" {% if currency == base_currency %}selected{% endif %}>{{ currency }}</option>
+                                {% endfor %}
+                            {% else %}
+                                <option disabled>No data available</option>
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>To:</label>
+                        <select name="target_currency">
+                            {% if currencies %}
+                                {% for currency in currencies %}
+                                    <option value="{{ currency }}" {% if currency == target_currency %}selected{% endif %}>{{ currency }}</option>
+                                {% endfor %}
+                            {% else %}
+                                <option disabled>No data available</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+
+                <label>Amount:</label>
+                <input type="number" name="amount" value="{{ amount }}" step="0.01" required>
+
+                <button type="submit">Convert</button>
+
+                {% if result is not None %}
+                    <div class="result">{{ amount }} {{ base_currency }} = {{ result|floatformat:2 }} {{ target_currency }}</div>
+                {% endif %}
+            </form>
         </div>
 
+        <!-- Top movies widget -->
         <div class="info-box">
             <h2>Top Movies</h2>
             <p>Top 10 Sci-Fi Movies list will be displayed here.</p>
         </div>
     </div>
 
-    <!-- Блок новин -->
+    <!-- News box -->
     <div class="news-box">
         <h2>News</h2>
         <p>Latest news from NewsAPI will be displayed here.</p>
