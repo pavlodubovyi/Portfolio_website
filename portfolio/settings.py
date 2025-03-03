@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
 OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
 EXCHANGE_RATES_API_KEY = os.getenv('EXCHANGE_RATES_API_KEY')
 MOVIE_DB_API_KEY = os.getenv('MOVIE_DB_API_KEY')
@@ -32,7 +32,7 @@ MOVIE_DB_API_KEY = os.getenv('MOVIE_DB_API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["13.60.162.224.nip.io", "localhost", "127.0.0.1"]
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
