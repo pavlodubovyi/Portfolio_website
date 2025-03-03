@@ -13,6 +13,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import subprocess
+
+
+def get_aws_parameter(parameter_name):
+    result = subprocess.run(
+        ['aws', 'ssm', 'get-parameter', '--name', parameter_name, '--with-decryption', '--query', 'Parameter.Value', '--output', 'text'],
+        capture_output=True,
+        text=True)
+    return result.stdout.strip()
+
 
 load_dotenv()
 
@@ -24,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
 EXCHANGE_RATES_API_KEY = os.getenv('EXCHANGE_RATES_API_KEY')
 MOVIE_DB_API_KEY = os.getenv('MOVIE_DB_API_KEY')
