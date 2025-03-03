@@ -55,6 +55,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["13.60.162.224.nip.io", "localhost", "127.0.0.1"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://13.60.162.224.nip.io',
+]
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
