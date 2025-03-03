@@ -35,9 +35,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+if not SECRET_KEY:
+    SECRET_KEY = get_aws_parameter('DJANGO_SECRET_KEY')
+
 OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
+if not OPENWEATHER_API_KEY:
+    OPENWEATHER_API_KEY = get_aws_parameter('OPENWEATHER_API_KEY')
+
 EXCHANGE_RATES_API_KEY = os.getenv('EXCHANGE_RATES_API_KEY')
+if not EXCHANGE_RATES_API_KEY:
+    EXCHANGE_RATES_API_KEY = get_aws_parameter('EXCHANGE_RATES_API_KEY')
+
 MOVIE_DB_API_KEY = os.getenv('MOVIE_DB_API_KEY')
+if not MOVIE_DB_API_KEY:
+    MOVIE_DB_API_KEY = get_aws_parameter('MOVIE_DB_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
