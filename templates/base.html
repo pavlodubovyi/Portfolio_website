@@ -19,13 +19,19 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <span class="navbar-brand">Pavlo Dubovyi's Portfolio</span>
-            <div class="d-flex">
-                <a href="{% url 'home' %}" class="btn btn-primary mx-2">Home</a>
-                <a href="{% url 'projects' %}" class="btn btn-primary mx-2">Projects</a>
-                <a href="{% url 'needful_things' %}" class="btn btn-primary mx-2">Needful Things</a>
-                <a href="{% url 'contact' %}" class="btn btn-primary mx-2">Contact</a>
-                <a href="{% url 'about' %}" class="btn btn-primary mx-2">About Me</a>
-                <a href="{% url 'hire' %}" class="btn btn-primary mx-2">Hire Me</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a href="{% url 'home' %}" class="nav-link btn btn-primary mx-2">Home</a>
+                    <a href="{% url 'projects' %}" class="nav-link btn btn-primary mx-2">Projects</a>
+                    <a href="{% url 'needful_things' %}" class="nav-link btn btn-primary mx-2">Needful Things</a>
+                    <a href="{% url 'contact' %}" class="nav-link btn btn-primary mx-2">Contact</a>
+                    <a href="{% url 'about' %}" class="nav-link btn btn-primary mx-2">About Me</a>
+                    <a href="{% url 'hire' %}" class="nav-link btn btn-primary mx-2">Hire Me</a>
+                </div>
             </div>
         </div>
     </nav>

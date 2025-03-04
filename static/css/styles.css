@@ -112,3 +112,76 @@ html, body {
     width: 100%;
     margin-top: 20px;
 }
+
+@media (max-width: 768px) {
+    /* Загальні стилі для мобільних */
+    body {
+        font-size: 14px;
+    }
+
+    .navbar {
+        padding: 5px;
+    }
+
+    /* Навігаційне меню */
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-nav .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+    }
+
+    /* Контент */
+    .content-box {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    /* Проєкти */
+    .projects-container {
+        max-height: unset; /* Забираємо обмеження по висоті */
+        overflow-y: visible;
+        padding: 5px;
+    }
+
+    .project-card {
+        width: 95%;
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .project-title {
+        font-size: 18px;
+    }
+
+    .project-description {
+        font-size: 13px;
+    }
+
+    /* Кнопки */
+    .btn {
+        font-size: 14px;
+        padding: 10px;
+        width: 100%; /* Розтягуємо кнопку на всю ширину */
+        text-align: center;
+    }
+
+    /* Форма */
+    .form-container {
+        max-width: 90%;
+        padding: 10px;
+    }
+
+    .form-container input,
+    .form-container textarea,
+    .form-container button {
+        font-size: 14px;
+        padding: 10px;
+        width: 100%;
+    }
+}
