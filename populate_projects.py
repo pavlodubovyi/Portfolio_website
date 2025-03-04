@@ -14,26 +14,26 @@ Project.objects.all().delete()
 projects_data = [
     {
         "title": "REST API Contact List",
-        "description": "FastAPI-based REST API with full CRUD functionality for managing contacts. "
-                       "Implemented authentication, password reset, and caching with Redis. "
-                       "Uses PostgreSQL and SQLAlchemy for data storage. "
-                       "Has birthday reminders for the upcoming 7 days. "
-                       "Integrated Cloudinary for avatar updates.",
+        "description": "- FastAPI-based REST API with full CRUD functionality for managing contacts.\n"
+                       "- Implemented authentication, password reset, and caching with Redis.\n"
+                       "- Uses PostgreSQL and SQLAlchemy for data storage.\n"
+                       "- Has birthday reminders for the upcoming 7 days.\n"
+                       "- Integrated Cloudinary for avatar updates.",
         "stack": "FastAPI, PostgreSQL, SQLAlchemy, Redis, Cloudinary",
         "link": "https://github.com/pavlodubovyi"
     },
     {
         "title": "Django-based Quotes Website",
-        "description": "Django-based web application to store and display famous quotes and author information. "
-                       "Implemented user authentication, pagination, and PostgreSQL integration.",
+        "description": "- Django-based web application to store and display famous quotes and author information.\n"
+                       "- Implemented user authentication, pagination, and PostgreSQL integration.",
         "stack": "Django, PostgreSQL",
         "link": "https://github.com/pavlodubovyi"
     },
     {
         "title": "Relational Database for a University",
-        "description": "Relational database for a university/school. "
-                       "Manages data of students, teachers, subjects, groups, and grades. "
-                       "Written on Python 3.11, using SQLAlchemy.",
+        "description": "- Relational database for a university/school.\n"
+                       "- Manages data of students, teachers, subjects, groups, and grades.\n"
+                       "- Written on Python 3.11, using SQLAlchemy.",
         "stack": "PostgreSQL, Python 3.11, SQLAlchemy",
         "link": "https://github.com/pavlodubovyi"
     }
