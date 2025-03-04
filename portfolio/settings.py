@@ -53,7 +53,12 @@ if not MOVIE_DB_API_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["13.60.162.224.nip.io", "13.60.162.224", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["13.60.162.224.nip.io",
+                 "13.60.162.224", "localhost",
+                 "127.0.0.1",
+                 os.environ.get("HEROKU_APP_NAME", "localhost"),
+                 "pavlo-portfolio-155294471fcc.herokuapp.com",
+                 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://13.60.162.224.nip.io',
